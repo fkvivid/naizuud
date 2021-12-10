@@ -139,6 +139,10 @@ const Items = [
       name: 'я',
       src: require('../assets/letters/35.png'),
     },
+    {
+      name: ' ',
+      src: require('../assets/letters/36.png'),
+    },
   ];
   
   export default Items;
@@ -178,4 +182,5 @@ export  const Letters  = [
     "э",
     "ю",
     "я",
+    " ",
   ];

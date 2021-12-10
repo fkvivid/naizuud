@@ -1,5 +1,6 @@
 import React from "react";
 import { Feather } from "@expo/vector-icons";
+import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
@@ -26,7 +27,12 @@ export default function App() {
             ),
           })}
         />
-        <Stack.Screen name="Info" component={InfoScreen} />
+        <Stack.Screen name="Info" component={InfoScreen} options={{
+          title: 'Info',
+          headerRight: () => (
+            <Text>@fkvivid</Text>
+          )
+        }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

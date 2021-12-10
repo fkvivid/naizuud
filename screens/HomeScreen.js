@@ -14,31 +14,37 @@ import Items,{Letters} from "./items";
 
 export default function HomeScreen() {
 
-//   const [arr, setArr] = useState([]);
+  const [arr, setArr] = useState([]);
+  const [text, setText] = useState('');
 
-//   const TextChangehandler = (text) => {
-//     var textArr = [];
-//     for (var i = 0; i < text.length; i++) {
-//       textArr.push(Items.indexOf(text[i]));
-//     }
-//     setArr(textArr);
-//   };
-//   //   console.log(arr);
+
+  const TextChangehandler = (text) => {
+    setText(text);
+    text = text.toLowerCase();
+    var textArr = [];
+    for (var i = 0; i < text.length; i++) {
+      if(Letters.indexOf(text[i]) != -1){
+        textArr.push(Letters.indexOf(text[i]));
+      }
+    }
+    setArr(textArr);
+  };
+    console.log(arr);
 
   return (
     <View style={css.container}>
       <View style={css.textview}>
-          {/* <Image source={Items[0].url}/> */}
         <FlatList
-          data={Items}
-          horizontal
+          data={arr}
+          numColumns={7}
+          numberOfLines={5}
           renderItem={(val) => {
+
             return (
               <View>
-                <Text>{val.item.letter}</Text>
                 <Image
                   style={css.image}
-                  source={Items[0].src}
+                  source={Items[val.item].src}
                 />
               </View>
             );
@@ -46,7 +52,7 @@ export default function HomeScreen() {
         />
       </View>
       <View style={css.textinputview}>
-        {/* <TextInput
+        <TextInput
           onChangeText={TextChangehandler}
           autoCapitalize="none"
           autoCorrect={false}
@@ -56,7 +62,7 @@ export default function HomeScreen() {
           numberOfLines={3}
           style={css.textinput}
           placeholder="Та үгээ энд бичнэ үү"
-        /> */}
+        />
       </View>
     </View>
   );
@@ -91,7 +97,7 @@ const css = StyleSheet.create({
     fontSize: 20,
   },
   image: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
   },
 });
