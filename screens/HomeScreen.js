@@ -13,7 +13,7 @@ import {
 import Items,{Letters} from "./items";
 
 export default function HomeScreen() {
-
+// arr
   const [arr, setArr] = useState([]);
   const [text, setText] = useState('');
 
