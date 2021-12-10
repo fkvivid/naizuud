@@ -10,44 +10,53 @@ import {
   ScrollView,
 } from "react-native";
 
-import Items,{Letters} from "./items";
+import Items, { Letters } from "./items";
 
 export default function HomeScreen() {
-// arr
+  // arr
   const [arr, setArr] = useState([]);
-  const [text, setText] = useState('');
 
-
-  const TextChangehandler = (text) => {
-    setText(text);
-    text = text.toLowerCase();
-    var textArr = [];
-    for (var i = 0; i < text.length; i++) {
-      if(Letters.indexOf(text[i]) != -1){
-        textArr.push(Letters.indexOf(text[i]));
+  const TextChangehandler = (val) => {
+    val = val.toLowerCase();
+    
+    var wordArr = [];
+    var word = val.split(" ");
+    // console.log(word.length);
+    for (var i = 0; i < word.length; i++) {
+      if (word[i].length > 1 && Letters.indexOf(word[i]) != -1) {
+        wordArr.push(Letters.indexOf(word[i]));
+      } else {
+        // console.log(word[i]);
+        var letter = word[i];
+        for( j=0; j<letter.length; j++){
+          if (Letters.indexOf(letter[j]) != -1) {
+            wordArr.push(Letters.indexOf(letter[j]));
+          }
+        }
+      wordArr.push(35);
       }
     }
-    setArr(textArr);
+    setArr(wordArr);
   };
-    console.log(arr);
 
   return (
     <View style={css.container}>
       <View style={css.textview}>
         <FlatList
           data={arr}
-          numColumns={7}
+          numColumns={4}
           numberOfLines={5}
+          persistentScrollbar
           renderItem={(val) => {
-
             return (
               <View>
-                <Image
-                  style={css.image}
-                  source={Items[val.item].src}
-                />
+                <Image style={css.image} source={Items[val.item].src} />
               </View>
             );
+          }}
+          keyExtractor={() => {
+            var key = Math.random(10).toString();
+            return key;
           }}
         />
       </View>
@@ -74,7 +83,7 @@ const css = StyleSheet.create({
     flex: 1,
     width: "100%",
     borderBottomWidth: 1,
-    padding: 10,
+    paddingTop: 10,
     flexDirection: "row",
   },
   textinputview: {
@@ -83,7 +92,7 @@ const css = StyleSheet.create({
         flex: 1,
       },
       ios: {
-        flex: 2,
+        flex: 1,
       },
     }),
     width: "100%",
@@ -97,7 +106,7 @@ const css = StyleSheet.create({
     fontSize: 20,
   },
   image: {
-    width: 50,
-    height: 50,
+    width: 95,
+    height: 95,
   },
 });
